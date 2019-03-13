@@ -47,3 +47,9 @@ document.getElementById("tigon-form-submit").onclick = function(event) {
       tigonYAMLFormSubmit();
     }
 };
+
+document.addEventListener('DOMContentLoaded', function(){
+  if (window.location.href.indexOf('json') >= 0) {
+    document.getElementById("tigon-form-input").setAttribute("placeholder", "YAML -> JSON");
+  }
+}, false);
