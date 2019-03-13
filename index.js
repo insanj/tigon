@@ -1,5 +1,5 @@
 
-function tigonFormSubmit() {
+function tigonYAMLFormSubmit() {
     const yamlString = document.getElementById("tigon-form-input").value;
     const yamlJSON = YAML.parse(yamlString);
     let convertedJSON = {};
@@ -20,7 +20,7 @@ function tigonFormSubmit() {
                         "y": parseFloat(splitCoords[1]),
                         "z": parseFloat(splitCoords[2])
                     };
-                }   
+                }
                 parsedWorlds[worldUIDString] = parsedAreas;
             }
             convertedJSON[toplevelKey] = parsedWorlds;
@@ -31,8 +31,19 @@ function tigonFormSubmit() {
     const yamlConvertedJSON = YAML.stringify(convertedJSON, 20, 2).replace("\n","<br>");
     document.getElementById("tigon-result").innerHTML = yamlConvertedJSON;
 }
+function tigonJSONFormSubmit() {
+    const yamlString = document.getElementById("tigon-form-input").value;
+    const yamlJSON = YAML.parse(yamlString);
+    console.log("Dumping JSON instead of YAML..." + JSON.stringify(yamlJSON, null, '\t'));
+    document.getElementById("tigon-result").innerHTML = JSON.stringify(yamlJSON);
+}
 
 document.getElementById("tigon-form-submit").onclick = function(event) {
     event.preventDefault();
-    tigonFormSubmit();
+
+    if (window.location.href.indexOf('json') >= 0) {
+      tigonJSONFormSubmit();
+    } else {
+      tigonYAMLFormSubmit();
+    }
 };
